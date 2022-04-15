@@ -1,55 +1,19 @@
-import React, { useRef, useImperativeHandle } from 'react';
+import React, { useRef, useImperativeHandle, ButtonHTMLAttributes } from 'react';
 import classnames from 'classnames';
 import styled from './Button.module.css';
 
 type ButtonRef = {};
 
-type ButtonFormProps = {
-  id? : string;
-  action? : string;
-  enctype? : 'application/x-www-form-urlencoded' | 'multipart/form-data' | 'text/plain';
-  method? : 'post' | 'get'
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  className : string,
+  children : React.ReactNode
 };
 
-type ButtonProps = {
-  label? : string;
-  className? : string;
-  onClick? : () => void;
-  inlineStyles? : object;
-  autofocus? : boolean;
-  disabled? : boolean;
-  name? : string;
-  type? : 'submit' | 'reset' | 'button';
-  value? : string;
-  form? : ButtonFormProps;
+const defaultProps : Partial<ButtonProps> = {
+  className : ''
 };
 
-const defaultProps : ButtonProps = {
-  label : 'Button',
-  className : '',
-  onClick : () => null,
-  inlineStyles : {},
-  autofocus : false,
-  disabled : false,
-  name : 'button',
-  type : 'button',
-  value : 'button'
-};
-
-const Button = React.forwardRef<ButtonRef, ButtonProps>((props = defaultProps, ref) => {
-  const {
-    label,
-    onClick,
-    className,
-    inlineStyles,
-    autofocus,
-    disabled,
-    name,
-    type,
-    value,
-    form
-  } = props;
-
+const Button = React.forwardRef<ButtonRef, Partial<ButtonProps>>((props = defaultProps, ref) => {
   const wrapperRef = useRef<HTMLButtonElement>(null);
 
   useImperativeHandle(
@@ -60,20 +24,10 @@ const Button = React.forwardRef<ButtonRef, ButtonProps>((props = defaultProps, r
   return (
     <button
       ref={wrapperRef}
-      className={classnames(styled.wrapper, className)}
-      onClick={onClick}
-      style={inlineStyles}
-      autoFocus={autofocus}
-      disabled={disabled}
-      name={name}
-      type={type}
-      value={value}
-      form={form.id}
-      formAction={form.action}
-      formEncType={form.enctype}
-      formMethod={form.method}
+      className={classnames(styled.wrapper, props.className)}
+      {...props}
     >
-      {label}
+      {props.children}
     </button>
   );
 });

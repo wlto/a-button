@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import Button from '#components/Button/Button';
+import Button from '../components/Button/Button';
 import styles from '#styles/Home.module.css';
 
 export default function Home() {
@@ -12,10 +12,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Button
-        label="Do Something"
-        onClick={() => window.alert('hello!')}
-      />
+      <Button onClick={() => window.alert('hello')}>
+        Do Something
+      </Button>
     </div>
   )
 }

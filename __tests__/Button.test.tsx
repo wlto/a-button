@@ -5,7 +5,7 @@ import '@testing-library/jest-dom';
 describe('Button', () => {
   it('renders a button', () => {
     const label = 'Do Something';
-    render(<Button label={label} />);
+    render(<Button>{label}</Button>);
 
     const button = screen.getByText(label);
 
@@ -15,7 +15,7 @@ describe('Button', () => {
   it('clicks on a button', () => {
     const label = 'Do Something';
     const onClick = jest.fn();
-    render(<Button label={label} onClick={onClick} />);
+    render(<Button onClick={onClick}>{label}</Button>);
     
     const button = screen.getByText(label);
     expect(button).toBeInTheDocument();
