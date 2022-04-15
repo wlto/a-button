@@ -16,7 +16,7 @@ const defaultProps : ButtonProps = {
   inlineStyles : {}
 };
 
-const Button = (props : ButtonProps = defaultProps) => {
+const Button : React.FC<ButtonProps> = (props = defaultProps) => {
   const {
     label,
     onClick,
